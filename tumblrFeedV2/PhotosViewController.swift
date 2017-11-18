@@ -7,13 +7,45 @@
 //
 
 import UIKit
+import AlamofireImage
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    // an array of arrays
+    var posts: [[String: Any]] = []
+    var tumblrObj = tumblr()
+    
+    @IBOutlet weak var tableView: UITableView!
+ 
+    
     override func viewDidLoad() {
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+    tumblrObj.fillDict(with:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV") {
+        (result: [[String:Any]]) in
+        
+            self.posts = result
+            self.tableView.reloadData()
+        
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        
+        let url = tumblrObj.getPhoto(from: posts[indexPath.row])
+        
+        cell.tumblrImg.af_setImage(withURL: url!)
+      
+        return cell
     }
 
     override func didReceiveMemoryWarning() {
