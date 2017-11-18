@@ -34,16 +34,51 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
+        profileView.layer.borderWidth = 1;
+        
+        // Set the avatar
+        profileView.af_setImage(withURL: URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/avatar")!)
+        headerView.addSubview(profileView)
+        
+        // Add a UILabel for the date here
+        // Use the section number to get the right URL
+        // let label = ...
+        
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 50))
+       label.text = tumblrObj.getPhoto(from: posts[section]).date!
+        headerView.addSubview(label)
+        print (label.text!)
+        return headerView
+    }
+   
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(50)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         
-        let url = tumblrObj.getPhoto(from: posts[indexPath.row])
+        let post = tumblrObj.getPhoto(from: posts[indexPath.section])
         
-        cell.tumblrImg.af_setImage(withURL: url!)
+        cell.tumblrImg.af_setImage(withURL: post.photoURL!)
       
         return cell
     }
@@ -54,14 +89,23 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "toPhotoDetails") {
+            let vc = segue.destination as! PhotoDetailsViewController
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)!
+            let post = tumblrObj.getPhoto(from: posts[indexPath.section])
+            
+            vc.photoURL = post.photoURL!
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 }
