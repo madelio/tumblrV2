@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -123,32 +124,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="E9K-Bb-HFM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="E9K-Bb-HFM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="shq-WM-lJp">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="256"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shq-WM-lJp">
+                                        <rect key="frame" x="0.0" y="0.0" width="708" height="500"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="256" id="5ce-XJ-BMv"/>
+                                            <constraint firstAttribute="width" secondItem="shq-WM-lJp" secondAttribute="height" multiplier="177:125" id="rgb-RF-hPl"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="shq-WM-lJp" secondAttribute="trailing" id="1Nw-K8-Ptu"/>
-                                    <constraint firstItem="shq-WM-lJp" firstAttribute="centerX" secondItem="E9K-Bb-HFM" secondAttribute="centerX" id="5RA-Wd-fVt"/>
-                                    <constraint firstItem="shq-WM-lJp" firstAttribute="leading" secondItem="E9K-Bb-HFM" secondAttribute="leading" id="Aq8-ul-jes"/>
-                                    <constraint firstAttribute="bottom" secondItem="shq-WM-lJp" secondAttribute="bottom" constant="411" id="Waf-PV-Ehu"/>
-                                    <constraint firstItem="shq-WM-lJp" firstAttribute="top" secondItem="E9K-Bb-HFM" secondAttribute="top" id="Y7k-Pr-VMz"/>
-                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="E9K-Bb-HFM" secondAttribute="trailing" id="9Fa-NJ-Xcq"/>
-                            <constraint firstItem="E9K-Bb-HFM" firstAttribute="bottom" secondItem="VED-Ye-dCc" secondAttribute="top" id="fro-sM-Cwb"/>
-                            <constraint firstItem="E9K-Bb-HFM" firstAttribute="leading" secondItem="MAn-Fp-sLG" secondAttribute="leading" id="ly0-T7-k8e"/>
-                            <constraint firstItem="E9K-Bb-HFM" firstAttribute="top" secondItem="MAn-Fp-sLG" secondAttribute="top" id="ya1-TZ-lzE"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="shq-WM-lJp" id="T5O-E5-9Is"/>
@@ -157,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24k-Si-yQF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1773" y="-490"/>
+            <point key="canvasLocation" x="1772.5" y="-490.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xM2-Nv-toQ">
